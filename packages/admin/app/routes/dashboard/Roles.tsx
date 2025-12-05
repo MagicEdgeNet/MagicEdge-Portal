@@ -1,8 +1,9 @@
+import { MoreVertical, Plus, Search, Shield, Users as UsersIcon } from 'lucide-react'
 import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
-import { Button } from '~/components/ui/button'
-import { Input } from '~/components/ui/input'
 import { Badge } from '~/components/ui/badge'
+import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Input } from '~/components/ui/input'
 import {
   Table,
   TableBody,
@@ -11,8 +12,6 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
-import { Plus, MoreVertical, Shield, Users as UsersIcon } from 'lucide-react'
-import { Search } from 'lucide-react'
 
 const roles = [
   {
@@ -63,9 +62,9 @@ export default function Roles() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredRoles = roles.filter(
-    (role) =>
-      role.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      role.description.toLowerCase().includes(searchQuery.toLowerCase())
+    role =>
+      role.name.toLowerCase().includes(searchQuery.toLowerCase())
+      || role.description.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -92,7 +91,9 @@ export default function Roles() {
           <CardContent>
             <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{roles.length}</div>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {roles.filter(r => r.type === 'system').length} 个系统角色
+              {roles.filter(r => r.type === 'system').length}
+              {' '}
+              个系统角色
             </p>
           </CardContent>
         </Card>
@@ -128,7 +129,7 @@ export default function Roles() {
           <Input
             placeholder="搜索角色..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -146,7 +147,7 @@ export default function Roles() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredRoles.map((role) => (
+            {filteredRoles.map(role => (
               <TableRow key={role.id} className="border-gray-200 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <TableCell>
                   <div>
@@ -179,13 +180,13 @@ export default function Roles() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {['用户管理', '应用管理', '系统设置', '审计'].map((category) => (
+            {['用户管理', '应用管理', '系统设置', '审计'].map(category => (
               <div key={category}>
                 <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">{category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {allPermissions
-                    .filter((p) => p.category === category)
-                    .map((permission) => (
+                    .filter(p => p.category === category)
+                    .map(permission => (
                       <Badge key={permission.id} variant="outline">
                         {permission.name}
                       </Badge>

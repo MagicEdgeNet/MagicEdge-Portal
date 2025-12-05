@@ -1,5 +1,5 @@
+import { Activity, AppWindow, Shield, Users } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
-import { Users, AppWindow, Shield, Activity } from 'lucide-react'
 
 const stats = [
   {
@@ -43,7 +43,7 @@ export default function Overview() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
+        {stats.map(stat => (
           <Card key={stat.name}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -55,8 +55,11 @@ export default function Overview() {
               <div className="text-2xl font-bold">{stat.value}</div>
               <p className={`text-xs ${
                 stat.changeType === 'positive' ? 'text-primary' : 'text-gray-600'
-              }`}>
-                {stat.change} 相比上周
+              }`}
+              >
+                {stat.change}
+                {' '}
+                相比上周
               </p>
             </CardContent>
           </Card>
@@ -71,12 +74,16 @@ export default function Overview() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {[1, 2, 3, 4].map((i) => (
+              {[1, 2, 3, 4].map(i => (
                 <div key={i} className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
                   <div className="flex-1">
                     <p className="text-sm font-medium">用户登录</p>
-                    <p className="text-xs text-gray-500">{i} 小时前</p>
+                    <p className="text-xs text-gray-500">
+                      {i}
+                      {' '}
+                      小时前
+                    </p>
                   </div>
                 </div>
               ))}
@@ -90,13 +97,13 @@ export default function Overview() {
             <CardDescription>常用功能快捷入口</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <button type="button" className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               创建新应用
             </button>
-            <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <button type="button" className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               添加用户
             </button>
-            <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <button type="button" className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               配置 OIDC
             </button>
           </CardContent>

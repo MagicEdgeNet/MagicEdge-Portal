@@ -1,11 +1,11 @@
+import type { Route } from './+types/register'
 import { Form, redirect, useActionData, useNavigation } from 'react-router'
 import * as z from 'zod'
+import logo from '~/assets/logo.svg'
 import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
-import logo from '~/assets/logo.svg'
-import type { Route } from "./+types/register";
 
 const formSchema = z.object({
   email: z.email({ message: '请输入有效的邮箱地址' }),
@@ -13,18 +13,18 @@ const formSchema = z.object({
     .min(12, { message: '密码至少需要 12 个字符' })
     .regex(/[A-Z]/, { message: '密码需要包含至少一个大写字母' })
     .regex(/[a-z]/, { message: '密码需要包含至少一个小写字母' })
-    .regex(/[0-9]/, { message: '密码需要包含至少一个数字' }),
+    .regex(/\d/, { message: '密码需要包含至少一个数字' }),
   confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
+}).refine(data => data.password === data.confirmPassword, {
   message: '两次输入的密码不一致',
   path: ['confirmPassword'],
 })
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
-    { title: "创建账户 - MagicEdge Portal" },
-    { name: "description", content: "创建您的 MagicEdge Portal 账户" },
-  ];
+    { title: '创建账户 - MagicEdge Portal' },
+    { name: 'description', content: '创建您的 MagicEdge Portal 账户' },
+  ]
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -47,6 +47,7 @@ export async function action({ request }: Route.ActionArgs) {
   }
 
   // TODO: 调用注册 API
+  // eslint-disable-next-line no-console
   console.log('Sign up:', result.data)
 
   return redirect('/auth/login')
@@ -115,12 +116,13 @@ export default function Register() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <div className="text-sm text-center text-muted-foreground">
-            已有账户?{' '}
+            已有账户?
+            {' '}
             <a href="/auth/login" className="text-primary hover:underline">
               登录
             </a>
           </div>
-          
+
           {/* Powered by */}
           <div className="pt-2 border-t w-full flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <span>Powered by</span>

@@ -1,12 +1,12 @@
+import { Plus, Settings, Trash2 } from 'lucide-react'
 import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
-import { Badge } from '~/components/ui/badge'
-import { Switch } from '~/components/ui/switch'
 import { Separator } from '~/components/ui/separator'
-import { Plus, Settings, Trash2 } from 'lucide-react'
+import { Switch } from '~/components/ui/switch'
 
 const ssoProviders = [
   {
@@ -128,7 +128,7 @@ export default function SSO() {
 
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">已配置的提供商</h2>
-        {ssoProviders.map((provider) => (
+        {ssoProviders.map(provider => (
           <Card key={provider.id}>
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
@@ -146,7 +146,15 @@ export default function SSO() {
                       </Badge>
                     </div>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      协议: {provider.type} • {provider.users} 个用户
+                      协议:
+                      {' '}
+                      {provider.type}
+                      {' '}
+                      •
+                      {' '}
+                      {provider.users}
+                      {' '}
+                      个用户
                     </p>
                   </div>
                 </div>

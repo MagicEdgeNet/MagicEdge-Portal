@@ -1,22 +1,22 @@
+import type { Route } from './+types/login'
 import { Form, redirect, useActionData, useNavigation } from 'react-router'
 import * as z from 'zod'
+import logo from '~/assets/logo.svg'
 import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
-import logo from '~/assets/logo.svg'
-import type { Route } from "./+types/login";
 
 const formSchema = z.object({
   email: z.email({ message: '请输入有效的邮箱地址' }),
   password: z.string().min(12, { message: '密码至少需要 12 个字符' }),
 })
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
-    { title: "登录 - MagicEdge Portal" },
-    { name: "description", content: "登录到 MagicEdge Portal 以访问您的账户" },
-  ];
+    { title: '登录 - MagicEdge Portal' },
+    { name: 'description', content: '登录到 MagicEdge Portal 以访问您的账户' },
+  ]
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -37,6 +37,7 @@ export async function action({ request }: Route.ActionArgs) {
   }
 
   // TODO: 调用登录 API
+  // eslint-disable-next-line no-console
   console.log('Sign in:', result.data)
 
   return redirect('/')
@@ -92,12 +93,13 @@ export default function Login() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <div className="text-sm text-center text-muted-foreground">
-            还没有账户?{' '}
+            还没有账户?
+            {' '}
             <a href="/auth/register" className="text-primary hover:underline">
               注册
             </a>
           </div>
-          
+
           {/* Powered by */}
           <div className="pt-2 border-t w-full flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <span>Powered by</span>

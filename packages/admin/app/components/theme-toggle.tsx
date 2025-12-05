@@ -1,13 +1,14 @@
 import { Moon, Sun } from 'lucide-react'
-import { Button } from '~/components/ui/button'
-import { useTheme } from '~/components/theme-provider'
 import { useEffect, useState } from 'react'
+import { useTheme } from '~/components/theme-provider'
+import { Button } from '~/components/ui/button'
 
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect, react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
@@ -16,10 +17,11 @@ export function ThemeToggle() {
     // 如果是明确主题，则切换到相反的明确主题
     // 这里我们简单地在 light 和 dark 之间切换，不使用 system
     // 或者，如果当前是 system，我们看 resolvedTheme
-    
+
     if (theme === 'system') {
       setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-    } else {
+    }
+    else {
       setTheme(theme === 'dark' ? 'light' : 'dark')
     }
   }

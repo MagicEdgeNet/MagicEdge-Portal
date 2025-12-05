@@ -1,11 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Copy, ExternalLink, RefreshCw } from 'lucide-react'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Switch } from '~/components/ui/switch'
-import { Copy, RefreshCw, ExternalLink } from 'lucide-react'
 
 export default function OIDC() {
   const oidcConfig = {
@@ -236,7 +236,7 @@ export default function OIDC() {
               { scope: 'phone', description: '访问用户的手机号码', required: false },
               { scope: 'address', description: '访问用户的地址信息', required: false },
               { scope: 'offline_access', description: '获取 Refresh Token', required: false },
-            ].map((item) => (
+            ].map(item => (
               <div key={item.scope}>
                 <div className="flex items-center justify-between">
                   <div>

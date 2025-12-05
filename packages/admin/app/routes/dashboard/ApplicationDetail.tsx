@@ -1,10 +1,10 @@
-import { useParams, useNavigate } from 'react-router'
 import { ArrowLeft, Copy, RefreshCw, Trash2 } from 'lucide-react'
+import { useNavigate, useParams } from 'react-router'
+import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
-import { Badge } from '~/components/ui/badge'
 import { Separator } from '~/components/ui/separator'
 import { Switch } from '~/components/ui/switch'
 
@@ -14,7 +14,7 @@ export default function ApplicationDetail() {
 
   // Mock data - 实际应用中应该从 API 获取
   const application = {
-    id: id,
+    id,
     name: 'My SaaS App',
     type: 'Web Application',
     clientId: 'app_123456789',
@@ -136,8 +136,8 @@ export default function ApplicationDetail() {
           <CardDescription>允许的回调地址列表</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {application.redirectUris.map((uri, index) => (
-            <div key={index} className="flex items-center space-x-2">
+          {application.redirectUris.map(uri => (
+            <div key={uri} className="flex items-center space-x-2">
               <Input value={uri} readOnly className="flex-1" />
               <Button variant="outline" size="icon">
                 <Trash2 className="h-4 w-4" />
@@ -157,7 +157,7 @@ export default function ApplicationDetail() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {application.allowedScopes.map((scope) => (
+            {application.allowedScopes.map(scope => (
               <Badge key={scope} variant="outline">
                 {scope}
               </Badge>

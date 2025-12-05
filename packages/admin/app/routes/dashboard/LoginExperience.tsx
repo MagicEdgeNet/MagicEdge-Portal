@@ -1,10 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Lock, Mail, Palette, Smartphone } from 'lucide-react'
 import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
-import { Switch } from '~/components/ui/switch'
 import { Separator } from '~/components/ui/separator'
-import { Palette, Mail, Smartphone, Lock } from 'lucide-react'
+import { Switch } from '~/components/ui/switch'
 
 export default function LoginExperience() {
   return (
@@ -126,7 +126,7 @@ export default function LoginExperience() {
             { name: 'Microsoft', enabled: false, icon: '🔷' },
             { name: 'WeChat (微信)', enabled: false, icon: '🟢' },
             { name: 'Alipay (支付宝)', enabled: false, icon: '🔵' },
-          ].map((provider) => (
+          ].map(provider => (
             <div key={provider.name}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">

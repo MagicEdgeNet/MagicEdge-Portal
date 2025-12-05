@@ -1,7 +1,7 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
-import { Switch } from '~/components/ui/switch'
-import { Separator } from '~/components/ui/separator'
 import { Mail, Smartphone } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Separator } from '~/components/ui/separator'
+import { Switch } from '~/components/ui/switch'
 
 export default function LoginMethods() {
   return (

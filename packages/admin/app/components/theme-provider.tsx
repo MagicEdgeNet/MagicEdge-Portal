@@ -1,14 +1,14 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, use, useEffect, useMemo, useState } from 'react'
 
 type Theme = 'dark' | 'light' | 'system'
 
-type ThemeProviderProps = {
+interface ThemeProviderProps {
   children: React.ReactNode
   defaultTheme?: Theme
   storageKey?: string
 }
 
-type ThemeProviderState = {
+interface ThemeProviderState {
   theme: Theme
   setTheme: (theme: Theme) => void
   resolvedTheme: 'dark' | 'light'
@@ -34,7 +34,7 @@ export function ThemeProvider({
     }
     return defaultTheme
   })
-  
+
   const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>('light')
 
   useEffect(() => {
@@ -49,8 +49,9 @@ export function ThemeProvider({
         : 'light'
 
       root.classList.add(systemTheme)
+      // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect, react-hooks/set-state-in-effect
       setResolvedTheme(systemTheme)
-      
+
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
       const handleChange = (e: MediaQueryListEvent) => {
         const newTheme = e.matches ? 'dark' : 'light'
@@ -58,33 +59,35 @@ export function ThemeProvider({
         root.classList.add(newTheme)
         setResolvedTheme(newTheme)
       }
-      
+
       mediaQuery.addEventListener('change', handleChange)
       return () => mediaQuery.removeEventListener('change', handleChange)
     }
 
     root.classList.add(theme)
+    // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
     setResolvedTheme(theme)
   }, [theme])
 
-  const value = {
+  const value = useMemo(() => ({
     theme,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme)
       setTheme(theme)
     },
     resolvedTheme,
-  }
+  }), [theme, storageKey, resolvedTheme])
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext {...props} value={value}>
       {children}
-    </ThemeProviderContext.Provider>
+    </ThemeProviderContext>
   )
 }
 
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext)
+// eslint-disable-next-line react-refresh/only-export-components
+export function useTheme() {
+  const context = use(ThemeProviderContext)
 
   if (context === undefined)
     throw new Error('useTheme must be used within a ThemeProvider')

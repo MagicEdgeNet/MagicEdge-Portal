@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react'
+import { AppWindow, ChevronLeft, Home, KeyRound, LogOut, Mail, Menu, Palette, Settings, Shield, ShieldCheck, UserCog, Users } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router'
-import { Home, Users, AppWindow, Settings, Shield, LogOut, Menu, ChevronLeft, ShieldCheck, KeyRound, Palette, UserCog, Mail, Smartphone } from 'lucide-react'
-import { Button } from '~/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import { ThemeToggle } from '~/components/theme-toggle'
-import { useTheme } from '~/components/theme-provider'
-import { Separator } from '~/components/ui/separator'
-import logoLight from '~/assets/logo-light.svg'
 import logoDark from '~/assets/logo-dark.svg'
+import logoLight from '~/assets/logo-light.svg'
+import { ThemeToggle } from '~/components/theme-toggle'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import { Button } from '~/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,13 +14,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu'
+import { Separator } from '~/components/ui/separator'
 
 const navigationGroups = [
   {
     title: '控制台',
     items: [
       { name: '概览', href: '/dashboard', icon: Home },
-    ]
+    ],
   },
   {
     title: '资源管理',
@@ -30,7 +29,7 @@ const navigationGroups = [
       { name: '应用', href: '/dashboard/applications', icon: AppWindow },
       { name: '用户', href: '/dashboard/users', icon: Users },
       { name: '角色', href: '/dashboard/roles', icon: UserCog },
-    ]
+    ],
   },
   {
     title: '身份认证',
@@ -42,13 +41,13 @@ const navigationGroups = [
       { name: '多因素验证', href: '/dashboard/mfa', icon: ShieldCheck },
       { name: 'SSO', href: '/dashboard/sso', icon: KeyRound },
       { name: 'OpenID Connect', href: '/dashboard/oidc', icon: Shield },
-    ]
+    ],
   },
   {
     title: '系统',
     items: [
       { name: '设置', href: '/dashboard/settings', icon: Settings },
-    ]
+    ],
   },
 ]
 
@@ -59,28 +58,29 @@ export default function DashboardLayout() {
   const location = useLocation()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isDark, setIsDark] = useState(false)
-  
+
   // 监听实际应用的主题（从 HTML 元素的 class）
   useEffect(() => {
     const updateTheme = () => {
+      // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
       setIsDark(document.documentElement.classList.contains('dark'))
     }
-    
+
     // 初始化
     updateTheme()
-    
+
     // 监听 class 变化
     const observer = new MutationObserver(updateTheme)
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class']
+      attributeFilter: ['class'],
     })
-    
+
     return () => observer.disconnect()
   }, [])
-  
+
   const logo = isDark ? logoDark : logoLight
-  
+
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Sidebar */}
@@ -140,7 +140,7 @@ export default function DashboardLayout() {
         <header className="flex items-center justify-between h-16 px-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-4">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-              {allNavItems.find((item) => item.href === location.pathname)?.name || '控制台'}
+              {allNavItems.find(item => item.href === location.pathname)?.name || '控制台'}
             </h2>
           </div>
           <div className="flex items-center space-x-2">

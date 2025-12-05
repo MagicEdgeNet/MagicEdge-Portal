@@ -1,7 +1,9 @@
+import { MoreVertical, Plus, Search } from 'lucide-react'
 import { useState } from 'react'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
-import { Badge } from '~/components/ui/badge'
 import {
   Table,
   TableBody,
@@ -10,8 +12,6 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import { Search, Plus, MoreVertical } from 'lucide-react'
 
 const users = [
   {
@@ -56,9 +56,9 @@ export default function Users() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+    user =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      || user.email.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -82,7 +82,7 @@ export default function Users() {
           <Input
             placeholder="搜索用户..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -100,7 +100,7 @@ export default function Users() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredUsers.map((user) => (
+            {filteredUsers.map(user => (
               <TableRow key={user.id} className="border-gray-200 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <TableCell>
                   <div className="flex items-center space-x-3">

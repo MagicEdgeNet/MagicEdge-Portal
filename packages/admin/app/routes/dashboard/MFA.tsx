@@ -1,9 +1,9 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
-import { Button } from '~/components/ui/button'
+import { Key, Mail, Shield, Smartphone } from 'lucide-react'
 import { Badge } from '~/components/ui/badge'
-import { Switch } from '~/components/ui/switch'
+import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Separator } from '~/components/ui/separator'
-import { Smartphone, Mail, Key, Shield } from 'lucide-react'
+import { Switch } from '~/components/ui/switch'
 
 const mfaMethods = [
   {
@@ -112,7 +112,8 @@ export default function MFA() {
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     <span className="font-medium text-gray-900 dark:text-gray-100">
                       {method.users.toLocaleString()}
-                    </span>{' '}
+                    </span>
+                    {' '}
                     个用户已启用
                   </div>
                   <Badge variant={method.enabled ? 'default' : 'secondary'}>
