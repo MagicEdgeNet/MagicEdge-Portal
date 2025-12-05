@@ -58,7 +58,6 @@ const allNavItems = navigationGroups.flatMap(group => group.items)
 export default function DashboardLayout() {
   const location = useLocation()
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
   const [isDark, setIsDark] = useState(false)
   
   // 监听实际应用的主题（从 HTML 元素的 class）
@@ -81,12 +80,6 @@ export default function DashboardLayout() {
   }, [])
   
   const logo = isDark ? logoDark : logoLight
-  
-  useEffect(() => {
-    setIsTransitioning(true)
-    const timer = setTimeout(() => setIsTransitioning(false), 300)
-    return () => clearTimeout(timer)
-  }, [location.pathname])
   
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
@@ -179,11 +172,8 @@ export default function DashboardLayout() {
         {/* Page content */}
         <main className="flex-1 overflow-y-auto p-6">
           <div
-            className={`transition-all duration-300 ${
-              isTransitioning
-                ? 'opacity-0 translate-y-2'
-                : 'opacity-100 translate-y-0'
-            }`}
+            key={location.pathname}
+            className="animate-fade-in-up"
           >
             <Outlet />
           </div>

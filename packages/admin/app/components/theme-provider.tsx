@@ -28,7 +28,13 @@ export function ThemeProvider({
   storageKey = 'magicedge-ui-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme)
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    }
+    return defaultTheme
+  })
+  
   const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>('light')
 
   useEffect(() => {
@@ -64,6 +70,7 @@ export function ThemeProvider({
   const value = {
     theme,
     setTheme: (theme: Theme) => {
+      localStorage.setItem(storageKey, theme)
       setTheme(theme)
     },
     resolvedTheme,
