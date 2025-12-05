@@ -1,0 +1,43 @@
+{
+  "name": "magicedge-portal",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "postinstall": "bun run install:backend",
+    "install:backend": "cd apps/backend && [ -f go.mod ] && go mod download || echo 'Backend not initialized'",
+    "dev:all": "concurrently -n admin,user,website,backend -c blue,green,yellow,magenta \"bun run dev:admin\" \"bun run dev:user\" \"bun run dev:website\" \"bun run dev:backend\"",
+    "dev:admin": "cd apps/admin && bun --bun vite --port 3002",
+    "dev:user": "cd apps/user && bun --bun vite --port 3001",
+    "dev:website": "cd apps/website && bun run dev",
+    "dev:docs": "cd apps/docs && bun run dev",
+    "dev:backend": "cd apps/backend && go run .",
+    "build": "bun run build:packages && bun run build:apps",
+    "build:packages": "bun run build:ui && bun run build:shared",
+    "build:apps": "bun run build:admin && bun run build:user && bun run build:website && bun run build:docs && bun run build:backend",
+    "build:admin": "cd apps/admin && bun --bun vite build",
+    "build:user": "cd apps/user && bun --bun vite build",
+    "build:website": "cd apps/website && bun run build",
+    "build:docs": "cd apps/docs && bun run build",
+    "build:backend": "cd apps/backend && go build -o bin/server",
+    "build:ui": "cd packages/ui && bun run build",
+    "build:shared": "cd packages/shared && bun run build",
+    "preview:admin": "cd apps/admin && bun --bun vite preview",
+    "preview:user": "cd apps/user && bun --bun vite preview",
+    "clean": "rm -rf node_modules apps/*/node_modules apps/*/dist apps/*/.next packages/*/node_modules packages/*/dist apps/backend/bin",
+    "clean:frontend": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
+    "clean:backend": "cd apps/backend && go clean && rm -rf bin",
+    "test": "bun run test:backend",
+    "test:backend": "cd apps/backend && go test ./...",
+    "backend:mod": "cd apps/backend && go mod tidy",
+    "backend:init": "cd apps/backend && go mod init github.com/MagicEdgeNet/magicedge-portal"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,15 @@
+[submodule "apps/admin"]
+	path = apps/admin
+	url = https://github.com/MagicEdgeNet/MagicEdge-Portal-Admin.git
+[submodule "apps/user"]
+	path = apps/user
+	url = https://github.com/MagicEdgeNet/MagicEdge-Portal-User.git
+[submodule "apps/docs"]
+	path = apps/docs
+	url = https://github.com/MagicEdgeNet/MagicEdge-Portal-Docs.git
+[submodule "apps/website"]
+	path = apps/website
+	url = https://github.com/MagicEdgeNet/MagicEdge-Portal-Website.git
+[submodule "apps/backend"]
+	path = apps/backend
+	url = https://github.com/MagicEdgeNet/MagicEdge-Portal-Backend.git
